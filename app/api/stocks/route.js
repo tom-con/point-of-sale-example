@@ -13,7 +13,11 @@ const knex = require('knex')({
 export async function GET(request) {
 	const searchParams = request.nextUrl.searchParams
 	const productId = searchParams.get('product_id')
-	const data = await (productId === null ? knex('stocks').select('*') : knex('stocks').where('product_id', productId).select('*'))
+	const storeId = searchParams.get('store_id')
+	var query = knex('stocks')
+	if (productId) query = query.where('product_id', productId)
+	if (storeId) query = query.where('store_id', storeId)
+	const data = await query.select('*')
 	return Response.json({ data })
 }
 
