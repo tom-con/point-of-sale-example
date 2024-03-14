@@ -8,7 +8,7 @@ const knex = require('knex')({
 		database: 'point_of_sale_db'
 	}
 });
-
+``
 export async function GET() {
 	const data = await knex('businesses').select('*')
 	return Response.json({ data })
