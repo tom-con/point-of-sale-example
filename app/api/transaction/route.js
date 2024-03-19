@@ -19,9 +19,7 @@ export async function POST(req) {
 		.whereIn('products.id', productIds)
 		.where('prices.valid_from_date', '<', new Date().toISOString())
 		.where('prices.store_id', storeId)
-	// console.log(productsAndPrices)
-
-
+		.select('*')
 
 	const billItemsToCreate = billItems.map(billItem => {
 		const { amount, productId } = billItem
