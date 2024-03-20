@@ -49,17 +49,51 @@ export async function POST(req) {
 		store_id: storeId
 	}
 
-	const [createdBill] = await knex('bills').insert(billToCreate).returning('*')
-	const billItemsToCreateAgain = billItemsToCreate.map(bITC => {
-		bITC.bill_id = createdBill.id
-		delete bITC.price
-		return bITC
+	const results = await knex.transaction(async (trx) => {
+		const [createdBill] = await trx('bills').insert(billToCreate).returning('*')
+		const billItemsToCreateAgain = billItemsToCreate.map(bITC => {
+			bITC.bill_id = createdBill.id
+			delete bITC.price
+			return bITC
+		})
+
+		const createdBillItems = await trx('bill_items').insert(billItemsToCreateAgain).returning('*')
+
+		const stockUpdates = await Promise.all(createdBillItems.map(async (createdBillItem) => {
+			const stocksWithAmount = await trx('stocks')
+				.where('product_id', createdBillItem.product_id)
+				.where('store_id', createdBill.store_id)
+				.where('amount', '>', 0)
+				.orderBy('received_datetime', 'asc')
+				.select('*')
+
+
+			let amountRemaining = createdBillItem.amount;
+
+			for (let i = 0; i < stocksWithAmount.length; i += 1) {
+				const { amount, id } = stocksWithAmount[i];
+				let newAmount = 0;
+				if (amount >= amountRemaining) {
+					newAmount = amount - amountRemaining;
+					amountRemaining = 0;
+				} else {
+					amountRemaining -= amount
+				}
+				const updatedStock = await trx('stocks')
+					.where('id', id)
+					.update({
+						amount: newAmount
+					})
+			}
+			return true;
+		}))
+
+		createdBill.billItems = createdBillItems
+
+		return createdBill
 	})
 
-	const createdBillItems = await knex('bill_items').insert(billItemsToCreateAgain).returning('*')
 
-	createdBill.billItems = createdBillItems
-
-	return Response.json({ data: createdBill })
+	return Response.json({ data: results })
 
 }
