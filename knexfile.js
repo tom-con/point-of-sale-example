@@ -8,9 +8,9 @@ module.exports = {
 	development: {
 		client: 'pg',
 		connection: {
-			database: 'point_of_sale_db',
-			user: 'tom',
-			password: '1234'
+			database: process.env.PG_DB,
+			user: process.env.PG_USER,
+			password: process.env.PG_PASS
 		},
 		pool: {
 			min: 2,

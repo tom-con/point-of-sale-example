@@ -1,11 +1,11 @@
 const knex = require('knex')({
 	client: 'pg',
 	connection: {
-		host: '127.0.0.1',
-		port: 5432,
-		user: 'tom',
-		password: '1234',
-		database: 'point_of_sale_db'
+		host: process.env.PG_URL,
+		port: process.env.PG_PORT,
+		user: process.env.PG_USER,
+		password: process.env.PG_PASS,
+		database: process.env.PG_DB
 	}
 });
 ``
