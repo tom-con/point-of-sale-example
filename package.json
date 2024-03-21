@@ -1,23 +1,26 @@
 {
-  "name": "point-of-sale",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "knex": "^3.1.0",
-    "next": "14.1.3",
-    "pg": "^8.11.3",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0"
-  }
+	"name": "point-of-sale",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@headlessui/react": "^1.7.18",
+		"@heroicons/react": "^2.1.1",
+		"knex": "^3.1.0",
+		"next": "14.1.3",
+		"pg": "^8.11.3",
+		"react": "^18",
+		"react-dom": "^18"
+	},
+	"devDependencies": {
+		"@tailwindcss/forms": "^0.5.7",
+		"autoprefixer": "^10.0.1",
+		"postcss": "^8",
+		"tailwindcss": "^3.3.0"
+	}
 }
