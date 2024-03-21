@@ -12,6 +12,14 @@ export async function POST(req) {
 
 	const isValidLogin = hash === foundUser.hashed_password
 
-	if (isValidLogin) return Response.json({ data: "OK" })
+	if (isValidLogin) return Response.json({
+		data: {
+			firstName: foundUser.first_name,
+			id: foundUser.id,
+			lastName: foundUser.last_name,
+			storeId: foundUser.store_id,
+			username,
+		}
+	})
 	else return new Response("BAD LOGIN", { status: 403 })
 }

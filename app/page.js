@@ -1,13 +1,12 @@
-"use client"
-
-import Button from './components/button'
+import LoginForm from "./components/login-form";
 
 export default function Home() {
 
 	return (
 		<main>
-			<Button onClick={() => { localStorage.setItem("USER_TYPE", "STORE") }} text="Store User" />
-			<Button onClick={() => { localStorage.setItem("USER_TYPE", "BUSINESS") }} text="Business User" />
+			<div className="mt-40 mx-4 md:w-1/3 md:flex md:mx-auto">
+				<LoginForm />
+			</div>
 		</main>
 	);
 }
