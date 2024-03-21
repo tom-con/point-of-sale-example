@@ -18,9 +18,9 @@ export default function OrderForm({ productId, storeId }) {
 	}
 
 	return (
-		<div className="flex">
+		<div className="flex justify-end gap-4">
 			<input
-				className="border-2 border-black text-black w-1/2"
+				className="border-2 border-black text-black w-20 rounded-md"
 				min={1}
 				onChange={(event) => setAmount(event.target.value)}
 				type="number"
