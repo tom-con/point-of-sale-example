@@ -1,5 +1,6 @@
 import { H1, P } from "@/app/components/design-system/typography";
 import { TBody, TD, TH, Table } from "@/app/components/design-system/table";
+import { addDays, format } from "date-fns"
 
 import OrderForm from "@/app/components/order-form";
 
@@ -24,6 +25,7 @@ export default async function Inventory({ params }) {
 						<tr>
 							<TH>Product Name</TH>
 							<TH>Amount In Stock</TH>
+							<TH>Expiry</TH>
 							<th scope="col" className="relative py-4 pl-3 pr-4 sm:pr-0">
 								<span className="sr-only">Order More</span>
 							</th>
@@ -34,6 +36,7 @@ export default async function Inventory({ params }) {
 							<tr key={item.product_id}>
 								<TD>{item.name}</TD>
 								<TD>{item.amount}</TD>
+								<TD>{item.is_perishable ? format(addDays(new Date(item.received_datetime), item.days_to_perish), 'yyyy-MM-dd') : `N/A`}</TD>
 								<td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium text-white sm:pr-0">
 									<OrderForm productId={item.product_id} storeId={params.id} />
 								</td>
