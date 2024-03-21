@@ -1,4 +1,4 @@
-// Update with your config settings.
+require('dotenv').config({ path: ['.env.local', '.env'] })
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
