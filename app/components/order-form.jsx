@@ -5,8 +5,10 @@ import { useState } from "react";
 
 export default function OrderForm({ productId, storeId }) {
 	const [amount, setAmount] = useState(10)
+	const [loading, setLoading] = useState(false)
 
 	async function orderProduct(productId, amount) {
+		setLoading(true)
 		const result = await fetch(`/api/stores/${storeId}/orders`, {
 			method: `POST`,
 			body: JSON.stringify({
@@ -14,7 +16,7 @@ export default function OrderForm({ productId, storeId }) {
 				productId,
 			})
 		})
-		console.log(result)
+		setLoading(false)
 	}
 
 	return (
@@ -26,7 +28,7 @@ export default function OrderForm({ productId, storeId }) {
 				type="number"
 				value={amount}
 			/>
-			<Button onClick={() => { orderProduct(productId, amount) }} text="Order More" />
+			<Button loading={loading} onClick={() => { orderProduct(productId, amount) }} text="Order More" />
 		</div>
 	)
 }

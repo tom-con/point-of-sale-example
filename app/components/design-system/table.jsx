@@ -13,3 +13,19 @@ export const TD = ({ children }) => {
 		</td>
 	)
 }
+
+export const TBody = ({ children }) => {
+	return (
+		<tbody className="divide-y divide-gray-200 bg-black">
+			{children}
+		</tbody>
+	)
+}
+
+export const Table = ({ children }) => {
+	return (
+		<table className="min-w-full divide-y divide-gray-300 px-4">
+			{children}
+		</table>
+	)
+}

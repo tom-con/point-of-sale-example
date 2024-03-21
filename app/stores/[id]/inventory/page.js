@@ -1,5 +1,5 @@
 import { H1, P } from "@/app/components/design-system/typography";
-import { TD, TH } from "@/app/components/design-system/table";
+import { TBody, TD, TH, Table } from "@/app/components/design-system/table";
 
 import OrderForm from "@/app/components/order-form";
 
@@ -19,7 +19,7 @@ export default async function Inventory({ params }) {
 				</div>
 			</div>
 			<div>
-				<table className="min-w-full divide-y divide-gray-300 px-4">
+				<Table>
 					<thead>
 						<tr>
 							<TH>Product Name</TH>
@@ -29,7 +29,7 @@ export default async function Inventory({ params }) {
 							</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-gray-200 bg-black">
+					<TBody>
 						{inventory.map((item) => (
 							<tr key={item.product_id}>
 								<TD>{item.name}</TD>
@@ -39,8 +39,8 @@ export default async function Inventory({ params }) {
 								</td>
 							</tr>
 						))}
-					</tbody>
-				</table>
+					</TBody>
+				</Table>
 			</div>
 		</div>
 	);
