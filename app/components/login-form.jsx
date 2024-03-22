@@ -23,22 +23,24 @@ export default function LoginForm() {
 	}
 
 	return (
-		<div className="flex flex-col gap-y-2">
+		<div className="flex flex-col gap-y-2 w-full items-center">
 			<input
-				className="text-black rounded-md"
+				className="text-black rounded-md w-full"
 				onChange={(event) => setUsername(event.target.value)}
 				placeholder="example@email.com"
 				type="text"
 				value={username}
 			/>
 			<input
-				className="text-black rounded-md"
+				className="text-black rounded-md w-full"
 				onChange={(event) => setPassword(event.target.value)}
 				type="password"
 				placeholder="password"
 				value={password}
 			/>
-			<Button loading={loading} onClick={() => login(username, password)} text="Login" />
+			<div className="w-full md:w-2/3 mt-6">
+				<Button loading={loading} onClick={() => login(username, password)} text="Login" />
+			</div>
 		</div>
 	)
 }
