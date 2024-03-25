@@ -13,9 +13,10 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 
 import Link from 'next/link'
+import { UserContext } from '@/app/state/user-context'
 import { classNames } from '@/app/utils'
 
 const navigation = [
@@ -35,6 +36,7 @@ const userNavigation = [
 
 export default function Layout({ children }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false)
+	const { user, setUser } = useContext(UserContext)
 	return (
 		<>
 			<div>
@@ -218,7 +220,7 @@ export default function Layout({ children }) {
 
 										<span className="hidden lg:flex lg:items-center">
 											<span className="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
-												Tom Con
+												{user.username}
 											</span>
 											<ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
 										</span>
@@ -236,15 +238,15 @@ export default function Layout({ children }) {
 											{userNavigation.map((item) => (
 												<Menu.Item key={item.name}>
 													{({ active }) => (
-														<a
-															href={item.href}
+														<button
+															onClick={() => setUser({})}
 															className={classNames(
 																active ? 'bg-gray-50' : '',
 																'block px-3 py-1 text-sm leading-6 text-gray-900'
 															)}
 														>
 															{item.name}
-														</a>
+														</button>
 													)}
 												</Menu.Item>
 											))}

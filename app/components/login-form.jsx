@@ -1,12 +1,17 @@
 "use client"
 
+import { useContext, useState } from "react"
+
 import Button from "./button"
-import { useState } from "react"
+import { UserContext } from '@/app/state/user-context'
+import { useRouter } from "next/navigation"
 
 export default function LoginForm() {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 	const [loading, setLoading] = useState(false)
+	const { setUser } = useContext(UserContext)
+	const router = useRouter()
 
 	async function login(user, pass) {
 		setLoading(true)
@@ -18,7 +23,8 @@ export default function LoginForm() {
 			})
 		})
 		const { data: body } = await result.json()
-		localStorage.setItem('user', JSON.stringify(body))
+		setUser(body)
+		router.push('/stores/2/inventory')
 		setLoading(false)
 	}
 
